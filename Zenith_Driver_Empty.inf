@@ -1,0 +1,47 @@
+; Zenith_Driver_Empty.inf
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318}
+Provider=%ManufacturerName%
+CatalogFile=Zenith_Driver_Empty.cat
+DriverVer = 07/20/2025,9.59.16.507
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 12 ; %SystemRoot%\System32\drivers
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+[SourceDisksFiles]
+Zenith_Driver_Empty.sys = 1,,,
+
+[Manufacturer]
+%ManufacturerName% = On2Me, NTamd64
+
+[On2Me.NTamd64]
+%Zenith_Driver_Empty.DeviceDesc% = InstallSection, Root\Zenith_Driver_Empty
+
+[InstallSection]
+CopyFiles = DriverCopy
+
+[InstallSection.Services]
+AddService = Zenith_Driver_Empty, 0x00000002, Service_Inst
+
+[DriverCopy]
+Zenith_Driver_Empty.sys
+
+[Service_Inst]
+DisplayName    = %Zenith_Driver_Empty.SvcDesc%
+ServiceType    = 1         ; SERVICE_KERNEL_DRIVER
+StartType      = 3         ; 3 = DEMAND_START (sc start)
+ErrorControl   = 1         ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\Zenith_Driver_Empty.sys
+
+[Strings]
+ManufacturerName = "On2Me"
+DiskName         = "Zenith Driver Installation Disk"
+Zenith_Driver_Empty.DeviceDesc = "Zenith Driver Device"
+Zenith_Driver_Empty.SvcDesc    = "Zenith Kernel Driver"
